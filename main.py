@@ -9,31 +9,34 @@ from aalpy.learning_algs import run_Lstar
 from aalpy.utils import visualize_automaton
 from git import Repo, Remote
 
+from filehandling import *
+from githandling import *
+
 repo_path: str = '/tmp/repo'
 bare_repo_path: str = '/tmp/barerepo.git'
 
 input_alphabet: list = [
     # File operations
-    'create_file0',
-    # 'create_file1',
-    'change_file0',
-    # 'change_file1',
-    'delete_file0',
-    # 'delete_file1',
+    'create_f0',
+    # 'create_f1',
+    'change_f0',
+    # 'change_f1',
+    'delete_f0',
+    # 'delete_f1',
 
-    # Git pseudo-commands and status checks
-    # 'list_untracked_files',
-    'is_dirty',
+    # Git status checks
+    'untracked',
+    'dirty',
 
     # Git commands
     # 'add_all',
-    'add_file0',
-    # 'add_file1',
+    'add_f0',
+    # 'add_f1',
     'commit',
     # 'fetch',
     # 'pull',
     # 'push',
-    'tag'
+    # 'tag'
 ]
 
 
@@ -56,170 +59,58 @@ class GitSUL(SUL):
         self.bare_repo_path: str = path_to_bare_repo
         assert not os.path.exists(self.repo_path)
         assert not os.path.exists(self.bare_repo_path)
-        self.repo: Repo | None = None
-        self.bare_repo: Repo | None = None
 
-        self.filenames: list = ['file0.txt', 'file1.txt']
-        self.commit_number: int = -1
-        self.tag_number: int = -1
+        self.filenames: list[str] = ['file0.txt', 'file1.txt']
 
-    def __del__(self):
-        try:
-            os.system('rm -rf ' + self.repo_path)
-        except FileNotFoundError:
-            pass
-        try:
-            os.system('rm -rf ' + self.bare_repo_path)
-        except FileNotFoundError:
-            pass
+        self.git: GitWrapper | None = None
 
     def pre(self):
-        self.repo = Repo.init(self.repo_path)
-        self.bare_repo = Repo.init(self.bare_repo_path, bare=True)
-        assert not self.repo.bare
-        assert self.bare_repo.bare
-        # self.repo.create_remote('origin', self.bare_repo_path)
-        self.commit_number = -1
-        self.tag_number = -1
+        self.git = GitWrapper(self.repo_path, self.bare_repo_path)
 
     def post(self):
-        os.system('rm -rf ' + self.repo_path)
-        os.system('rm -rf ' + self.bare_repo_path)
-        self.repo = None
-        self.bare_repo = None
+        self.git.destroy()  # Important, do not forget!
+        self.git = None
 
     def step(self, letter):
         match letter:
             # File operations
-            case 'create_file0':
-                try:
-                    with open(self.repo_path + '/' + self.filenames[0], 'x') as f:
-                        pass
-                    return "CREATE_SUCCESS " + self.filenames[0]
-                except Exception:
-                    return "CREATE_FAIL " + self.filenames[0]
-            case 'create_file1':
-                try:
-                    with open(self.repo_path + '/' + self.filenames[1], 'x') as f:
-                        pass
-                    return "CREATE_SUCCESS " + self.filenames[1]
-                except Exception:
-                    return "CREATE_FAIL " + self.filenames[1]
-            case 'change_file0':
-                try:
-                    with open(self.repo_path + '/' + self.filenames[0], 'a') as f:
-                        f.write(get_random_garbage() + '\n')  # TODO also do changes to existing text
-                    return "WRITE_SUCCESS " + self.filenames[0]
-                except Exception:
-                    return "WRITE_FAIL " + self.filenames[0]
-            case 'change_file1':
-                try:
-                    with open(self.repo_path + '/' + self.filenames[1], 'a') as f:
-                        f.write(get_random_garbage() + '\n')  # TODO also do changes to existing text
-                    return "WRITE_SUCCESS " + self.filenames[1]
-                except Exception:
-                    return "WRITE_FAIL " + self.filenames[1]
-            case 'delete_file0':
-                try:
-                    os.remove(self.repo_path + '/' + self.filenames[0])
-                    return "DELETE_SUCCESS " + self.filenames[0]
-                except Exception:
-                    return "DELETE_FAIL " + self.filenames[0]
-            case 'delete_file1':
-                try:
-                    os.remove(self.repo_path + '/' + self.filenames[1])
-                    return "DELETE_SUCCESS " + self.filenames[1]
-                except Exception:
-                    return "DELETE_FAIL " + self.filenames[1]
+            case 'create_f0':
+                return create_file(self.repo_path + '/' + self.filenames[0])
+            case 'create_f1':
+                return create_file(self.repo_path + '/' + self.filenames[1])
+            case 'change_f0':
+                return change_file(self.repo_path + '/' + self.filenames[0])
+            case 'change_f1':
+                return change_file(self.repo_path + '/' + self.filenames[1])
+            case 'delete_f0':
+                return delete_file(self.repo_path + '/' + self.filenames[0])
+            case 'delete_f1':
+                return delete_file(self.repo_path + '/' + self.filenames[0])
+
+            # Git status checks
+            case 'untracked':
+                return self.git.untracked()
+            case 'dirty':
+                return self.git.is_dirty()
 
             # Git commands
-            case 'list_untracked_files':
-                return "UNTRACKED " + str(self.repo.untracked_files)
-            case 'is_dirty':
-                return "REPO_DIRTY" if self.repo.is_dirty() else "REPO_NOT_DIRTY"
             case 'add_all':
-                try:
-                    self.repo.index.add(['.'])
-                    return "ADD_SUCCESS"
-                except Exception:
-                    return "ADD_FAIL"
-            case 'add_file0':
-                try:
-                    self.repo.index.add([self.filenames[0]])  # Needs to be a list!
-                    return "ADD_SUCCESS"
-                except Exception:
-                    return "ADD_FAIL"
-            case 'add_file1':
-                try:
-                    self.repo.index.add([self.filenames[1]])
-                    return "ADD_SUCCESS"
-                except Exception:
-                    return "ADD_FAIL"
+                return self.git.add('.')
+            case 'add_f0':
+                return self.git.add(self.filenames[0])
+            case 'add_f1':
+                return self.git.add(self.filenames[1])
             case 'commit':
-                try:
-                    self.commit_number += 1
-                    self.repo.index.commit("Commit number " + str(self.commit_number))
-                    return "COMMIT_SUCCESS"
-                except Exception:
-                    return "COMMIT_FAIL"
+                return self.git.commit()
             # case 'fetch':
             #     return self.repo.remotes['origin'].fetch()  # Alternative syntax: self.repo.remotes.origin.fetch()
             case 'tag':
-                try:
-                    self.tag_number += 1
-                    return "TAG " + str(self.repo.create_tag('tag-' + str(self.tag_number)))
-                except Exception:
-                    return "TAG_FAIL"
+                return self.git.tag()
             case _:
                 if letter in input_alphabet:
-                    print(letter)
-                    raise RuntimeError("Something went terribly wrong!")
+                    raise RuntimeError("Something went terribly wrong! (Letter: " + letter + ")")
                 else:
-                    raise ValueError("This letter is not part of the alphabet!")
-
-
-def testing():
-    # setup
-    global repo_path
-    global bare_repo_path
-    assert not os.path.exists(repo_path)
-    assert not os.path.exists(bare_repo_path)
-
-    repo: Repo = Repo.init(repo_path)
-    bare_repo: Repo = Repo.init(bare_repo_path, bare=True)
-    assert not repo.bare
-    assert bare_repo.bare
-
-    # debug prints
-    print_repo_data(repo)
-    print_repo_data(bare_repo)
-
-    print(repo.active_branch)
-    print(repo.head)
-
-    origin: Remote = repo.create_remote('origin', url=bare_repo_path)
-    assert origin.exists()
-
-    # c'mon, do something
-    assert not repo.is_dirty()
-    with open(repo_path + '/' + 'file.txt', 'x') as f:
-        pass
-    repo.index.add(['file.txt'])
-    assert repo.is_dirty()
-    repo.index.commit("Add file.txt")
-
-    # origin.push(refspec="master:origin")
-
-    assert not repo.is_dirty()
-    with open(repo_path + '/' + 'file.txt', 'a') as f:
-        f.write(get_random_garbage() + '\n')
-    assert repo.is_dirty()
-    repo.index.add(['file.txt'])
-    repo.index.commit("Update file.txt")
-
-    # cleanup
-    os.system('rm -rf ' + repo_path)
-    os.system('rm -rf ' + bare_repo_path)
+                    raise ValueError("This letter is not part of the alphabet! (Letter: " + letter + ")")
 
 
 def main():
@@ -231,7 +122,7 @@ def main():
     eq_oracle = RandomWalkEqOracle(input_alphabet, git_sul, num_steps=100)
     mealy = run_Lstar(input_alphabet, git_sul, eq_oracle, automaton_type='mealy', cache_and_non_det_check=True)
 
-    visualize_automaton(mealy)
+    visualize_automaton(mealy, 'git-model.pdf')
 
 
 if __name__ == '__main__':
