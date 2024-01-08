@@ -4,13 +4,14 @@ import random
 import aalpy
 import git
 from aalpy.base import SUL
-from aalpy.oracles import RandomWalkEqOracle
-from aalpy.learning_algs import run_Lstar
+from aalpy.oracles import RandomWalkEqOracle, WMethodEqOracle
+from aalpy.learning_algs import run_Lstar, run_KV
 from aalpy.utils import visualize_automaton
 from git import Repo, Remote
 
 from filehandling import *
 from githandling import *
+from explorer import print_automaton_details
 
 repo_path: str = '/tmp/repo'
 bare_repo_path: str = '/tmp/barerepo.git'
@@ -25,8 +26,8 @@ input_alphabet: list = [
     # 'delete_f1',
 
     # Git status checks
-    'untracked',
-    'dirty',
+    # 'untracked',
+    # 'dirty',
 
     # Git commands
     # 'add_all',
@@ -68,7 +69,8 @@ class GitSUL(SUL):
         self.git = GitWrapper(self.repo_path, self.bare_repo_path)
 
     def post(self):
-        self.git.destroy()  # Important, do not forget!
+        if self.git is not None:
+            self.git.destroy()  # Important, do not forget!
         self.git = None
 
     def step(self, letter):
@@ -119,10 +121,12 @@ def main():
     global bare_repo_path
 
     git_sul = GitSUL(repo_path, bare_repo_path)
-    eq_oracle = RandomWalkEqOracle(input_alphabet, git_sul, num_steps=100)
+    eq_oracle = RandomWalkEqOracle(input_alphabet, git_sul)
     mealy = run_Lstar(input_alphabet, git_sul, eq_oracle, automaton_type='mealy', cache_and_non_det_check=True)
+    # mealy = run_KV(input_alphabet, git_sul, eq_oracle, automaton_type='mealy', cache_and_non_det_check=True)
 
     visualize_automaton(mealy, 'git-model.pdf')
+    print_automaton_details(mealy)
 
 
 if __name__ == '__main__':
