@@ -14,6 +14,26 @@ def print_automaton_details(mealy: Automaton):
     print("-"*35)
 
 
+def log_automaton_details(mealy: Automaton, file=None):
+    log = str(len(mealy.states)) + '\n'
+    for state in mealy.states:
+        log += state.state_id + '\n'
+    for state in mealy.states:
+        for i in state.transitions.keys():
+            dst_state = state.transitions[i]
+            o = state.output_fun[i]
+            print(f"{state.state_id} -> {dst_state.state_id} : {i} / {o}")
+
+    if file is not None:
+        if file == 'stdout':
+            print(log)
+        else:
+            with open(file, "w") as f:
+                f.write(log)
+
+    return log
+
+
 def explore_automaton_interactive(mealy: Automaton):
     while True:
         command = input('> ').split()

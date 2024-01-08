@@ -11,7 +11,7 @@ from git import Repo, Remote
 
 from filehandling import *
 from githandling import *
-from explorer import print_automaton_details
+from explorer import print_automaton_details, log_automaton_details
 
 repo_path: str = '/tmp/repo'
 bare_repo_path: str = '/tmp/barerepo.git'
@@ -27,7 +27,7 @@ input_alphabet: list = [
 
     # Git status checks
     # 'untracked',
-    # 'dirty',
+    'dirty',
 
     # Git commands
     # 'add_all',
@@ -127,6 +127,7 @@ def main():
 
     visualize_automaton(mealy, 'git-model.pdf')
     print_automaton_details(mealy)
+    log_automaton_details(mealy, 'git-model.log')
 
 
 if __name__ == '__main__':
