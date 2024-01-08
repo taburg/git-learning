@@ -22,7 +22,7 @@ def log_automaton_details(mealy: Automaton, file=None):
         for i in state.transitions.keys():
             dst_state = state.transitions[i]
             o = state.output_fun[i]
-            print(f"{state.state_id} -> {dst_state.state_id} : {i} / {o}")
+            log += f"{state.state_id} -> {dst_state.state_id} : {i} / {o}"
 
     if file is not None:
         if file == 'stdout':
