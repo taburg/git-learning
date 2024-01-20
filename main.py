@@ -11,37 +11,38 @@ from filehandling import *
 from githandling import *
 from explorer import print_automaton_details, log_automaton_details
 
+# Paths to the repositories
 repo_path: str = '/tmp/repo'
 bare_repo_path: str = '/tmp/barerepo.git'
 
-# Comment these in or out to enable/disable them
+# Comment these in/out to enable/disable them
 input_alphabet: list = [
     # File operations
-    'create_f0',
-    # 'create_f1',
-    # 'change_f0',
-    # 'change_f1',
-    # 'delete_f0',
-    # 'delete_f1',
+    'create_f0',        # Create a file
+    'create_f1',
+    'change_f0',        # Apply changes to a file
+    'change_f1',
+    'delete_f0',        # Delete a file
+    'delete_f1',
 
     # Git status checks
-    'branch',
-    # 'untracked',
-    # 'dirty',
-    # 'modified'
+    'branch',           # Reveal the current branch
+    'untracked',        # Reveal the number of untracked files
+    'dirty',            # Reveal whether something was added, but not committed yet
+    'modified'          # Reveal the modified files
 
     # Git commands
-    # 'add_all',
+    'add_all',          # Add files
     'add_f0',
-    # 'add_f1',
-    'commit',
-    # 'fetch',
-    # 'pull',
-    # 'push',
-    # 'tag',
-    'create_branch',
-    'checkout_master',
-    'checkout_branch'
+    'add_f1',
+    'commit',           # Make a commit
+    'fetch',            # Fetch from remote
+    'pull',             # Pull from remote
+    'push',             # Push to remote, implies --set-remote for new branches
+    'tag',              # Create a tag
+    'create_branch',    # Create a new branch
+    'checkout_branch',  # Checkout the newly created branch
+    'checkout_master'   # Checkout master
 ]
 
 
