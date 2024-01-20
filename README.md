@@ -56,3 +56,14 @@ Future:
 - Once it is set up, try with remote repo
 - Same stuff with SVN
 - Write a function that compares models with known differences (push == commit, push)
+
+### Usage
+
+`python3 main.py`
+This will create two repos (one bare, one normal) in the `/tmp` directory. To remove them, run `./clean.sh`
+
+Furthermore, the files `git-model.pdf` and `git-model.log` containing the model's graph and a textual representation will be created.
+
+#### Change tested functionality
+
+Go to `main.py` and comment out the corresponding lines in the input alphabet. The exact functionality of each command (except for self-explanatory ones) is explained there, as well.
