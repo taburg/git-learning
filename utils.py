@@ -4,7 +4,7 @@ import shutil
 
 def create_file(path: str) -> str:
     try:
-        with open(path, 'w'):
+        with open(path, 'x'):
             pass
         return "CREATE_SUCCESS"
     except Exception:
