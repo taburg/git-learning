@@ -143,6 +143,11 @@ class GitSUL(SUL):
                 else:
                     raise ValueError("This letter is not part of the alphabet! (Letter: " + letter + ")")
 
+    def query(self, word: tuple) -> list:
+        print(word)
+        return super().query(word)
+
+
 
 def main():
     global input_alphabet
