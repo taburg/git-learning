@@ -1,5 +1,5 @@
-from aalpy import RandomWMethodEqOracle
 from aalpy.base import SUL
+from aalpy.oracles import RandomWMethodEqOracle
 from aalpy.learning_algs import run_Lstar
 
 from git_handling import *
