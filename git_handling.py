@@ -1,3 +1,5 @@
+import os
+
 from git import Repo
 
 
@@ -11,6 +13,7 @@ class GitWrapper:
         assert self.bare_repo.bare
         # self.repo = Repo.init(self.repo_path)
         self.repo: Repo = self.bare_repo.clone(self.repo_path)
+        assert os.path.exists(self.repo_path)
         assert not self.repo.bare
         # self.repo.create_remote('origin', self.bare_repo_path)
 

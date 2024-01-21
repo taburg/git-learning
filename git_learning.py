@@ -1,6 +1,6 @@
+from aalpy import RandomWMethodEqOracle
 from aalpy.base import SUL
 from aalpy.learning_algs import run_Lstar
-from aalpy.oracles import RandomWordEqOracle
 
 from git_handling import *
 from utils import *
@@ -9,8 +9,11 @@ from utils import *
 repo_path: str = 'tmp/repo'
 bare_repo_path: str = 'tmp/barerepo.git'
 
+repo_path = os.path.abspath(repo_path)
+bare_repo_path = os.path.abspath(bare_repo_path)
+
 # ensures that tmp folders are empty
-clean_up(repo_path, bare_repo_path)
+clean_up(None, repo_path, bare_repo_path)
 
 # Comment these in/out to enable/disable them
 input_alphabet: list = [
@@ -23,6 +26,7 @@ input_alphabet: list = [
     'delete_f1',
 
     # Git status checks
+    # They do not/should not change state
     # 'branch',  # Reveal the current branch
     # 'untracked',  # Reveal the number of untracked files
     # 'dirty',  # Reveal whether something was added, but not committed yet
@@ -51,8 +55,8 @@ reduced_input_alphabet: list = [
     # Git commands
     'add_f0',
     'commit',  # Make a commit
-    #'pull',  # Pull from remote
-    #'push',  # Push to remote, implies --set-remote for new branches
+    'pull',  # Pull from remote
+    'push',  # Push to remote, implies --set-remote for new branches
 ]
 
 
@@ -75,12 +79,11 @@ class GitSUL(SUL):
         self.git = GitWrapper(self.repo_path, self.bare_repo_path, self.mimic_cli_git_commit)
 
     def post(self):
-        if self.git:
-            self.git.repo.close()
-            self.git = None
+        clean_up(self.git, repo_path, bare_repo_path)
 
-        if os.path.exists(self.bare_repo_path):
-            shutil.rmtree(self.bare_repo_path)
+    def query(self, word: tuple) -> list:
+        print(f'Current query: {word}')
+        return super(GitSUL, self).query(word)
 
     def step(self, letter):
         match letter:
@@ -138,10 +141,11 @@ class GitSUL(SUL):
                     raise ValueError("This letter is not part of the alphabet! (Letter: " + letter + ")")
 
 
-input_alphabet = reduced_input_alphabet
+use_reduced_alphabet = True
+input_alphabet = input_alphabet if not use_reduced_alphabet else reduced_input_alphabet
 
 git_sul = GitSUL(repo_path, bare_repo_path, mimic_cli_git_commit=False)
-eq_oracle = RandomWordEqOracle(input_alphabet, git_sul, num_walks=500, min_walk_len=5, max_walk_len=20)
+eq_oracle = RandomWMethodEqOracle(input_alphabet, git_sul, walks_per_state=20, walk_len=10)
 learned_model = run_Lstar(input_alphabet, git_sul, eq_oracle, automaton_type='mealy')
 
 # learned_model = run_KV(input_alphabet, git_sul, eq_oracle, automaton_type='learned_model', cache_and_non_det_check=True)
@@ -150,7 +154,7 @@ learned_model.visualize(path='git-model.pdf')
 print(learned_model)
 learned_model.save('git-model')
 
-clean_up(repo_path, bare_repo_path)
+clean_up(git_sul.git, repo_path, bare_repo_path)
 
 # # Second version, imitating the behaviour of command line commit
 # git_sul_2 = GitSUL(repo_path, bare_repo_path, mimic_cli_git_commit=True)
