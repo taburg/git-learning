@@ -1,5 +1,3 @@
-import os
-
 from git import Repo
 
 
@@ -102,6 +100,3 @@ class GitWrapper:
         except Exception:
             return "CHECKOUT_FAIL"
 
-    def destroy(self):
-        os.system('rm -rf ' + self.repo_path)
-        os.system('rm -rf ' + self.bare_repo_path)
