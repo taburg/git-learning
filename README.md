@@ -30,6 +30,7 @@ git clone /path/to/bare.git
 
 `python3 git_learning.py` creates two repos (one bare, one normal) in the `/tmp` directory.
 
+TODO 
 Furthermore, the files `git-model.pdf` and `git-model.log` containing the model's graph and a textual representation will be created.
 
 

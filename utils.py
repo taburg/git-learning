@@ -33,7 +33,6 @@ def delete_file(path: str) -> str:
 def clean_up(git_instance, repo_path, bare_repo_path):
     if git_instance:
         git_instance.repo.close()
-        git_instance = None
 
     if os.path.exists(repo_path):
         shutil.rmtree(repo_path)
@@ -47,4 +46,3 @@ def clean_up(git_instance, repo_path, bare_repo_path):
                 os.chmod(os.path.join(root, f), 0o777)
 
         shutil.rmtree(bare_repo_path)
-
