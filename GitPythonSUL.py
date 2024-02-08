@@ -87,6 +87,8 @@ class GitWrapper:
             return False
 
     def create_branch(self, branch_name):
+        if branch_name in self.branches:
+            return False
         try:
             new_branch = self.repo.create_head(branch_name, 'HEAD')
             self.repo.head.reference = new_branch
