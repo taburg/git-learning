@@ -61,7 +61,7 @@ class GitSUL(SUL):
         elif letter == 'delete_f0':
             return delete_file(self.repo_path + '/' + self.filenames[0])
         elif letter == 'delete_f1':
-            return delete_file(self.repo_path + '/' + self.filenames[0])
+            return delete_file(self.repo_path + '/' + self.filenames[1])
 
         # Git status checks
         elif letter == 'branch':
