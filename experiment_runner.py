@@ -22,7 +22,7 @@ for input_al_name, input_al in [('basic', basic_functionality_alphabet),
 
         print(f'{alg_name}_{input_al_name} --------------')
         git_sul = GitSUL(repo_path, bare_repo_path, mimic_cli_git_commit=False, verbose=False)
-        eq_oracle = RandomWMethodEqOracle(input_al, git_sul, walks_per_state=20, walk_len=10)
+        eq_oracle = RandomWMethodEqOracle(input_al, git_sul, walks_per_state=10, walk_len=5)
         learned_model = run_Lstar(input_al, git_sul, eq_oracle, automaton_type='mealy')
 
         learned_model.save(f'models/{alg_name}_{input_al_name}')
