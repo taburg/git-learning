@@ -36,7 +36,6 @@ remotes_branching_alphabet: list = [
     'push',  # Push to remote, implies --set-remote for new branches
 
     # Branching
-    'fetch',
     'create_branch',  # Create a new branch
     'checkout_branch',  # Checkout the newly created branch
     'checkout_master'  # Checkout master
