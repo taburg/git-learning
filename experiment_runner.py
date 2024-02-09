@@ -15,7 +15,8 @@ bare_repo_path: str = 'tmp/barerepo.git'
 clean_up(None, repo_path, bare_repo_path)
 
 for input_al_name, input_al in [('basic', basic_functionality_alphabet),
-                                ('basic_with_remotes', basic_functionality_with_remotes_alphabet),
+                                ('basic_with_remotes', remotes_alphabet),
+                                ('basics_with_remotes_and_branches', remotes_branching_alphabet),
                                 ('extended', extended_functionality)]:
     for interface_type, sul in [('cmd', GitCmdSUL), ('gitPython', GitPythonSUL)]:
         for alg_name, learning_alg in [('L_star_', run_Lstar), ('KV', run_KV)]:

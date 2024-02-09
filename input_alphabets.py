@@ -10,7 +10,7 @@ basic_functionality_alphabet: list = [
     'commit',  # Make a commit
 ]
 
-basic_functionality_with_remotes_alphabet: list = [
+remotes_alphabet: list = [
     # File operations
     'create_f0',  # Create a file
     'change_f0',  # Apply changes to a file
@@ -21,6 +21,25 @@ basic_functionality_with_remotes_alphabet: list = [
     'commit',  # Make a commit
     'pull',  # Pull from remote
     'push',  # Push to remote, implies --set-remote for new branches
+]
+
+remotes_branching_alphabet: list = [
+    # File operations
+    'create_f0',  # Create a file
+    'change_f0',  # Apply changes to a file
+    'delete_f0',  # Delete a file
+
+    # Git commands
+    'add_f0',
+    'commit',  # Make a commit
+    'pull',  # Pull from remote
+    'push',  # Push to remote, implies --set-remote for new branches
+
+    # Branching
+    'fetch',
+    'create_branch',  # Create a new branch
+    'checkout_branch',  # Checkout the newly created branch
+    'checkout_master'  # Checkout master
 ]
 
 extended_functionality: list = [
