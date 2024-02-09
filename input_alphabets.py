@@ -10,7 +10,7 @@ basic_functionality_alphabet: list = [
     'commit',  # Make a commit
 ]
 
-basic_functionality_with_remote_alphabet: list = [
+basic_functionality_with_remotes_alphabet: list = [
     # File operations
     'create_f0',  # Create a file
     'change_f0',  # Apply changes to a file
