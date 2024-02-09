@@ -94,7 +94,7 @@ class GitCmdSUL(SUL):
             git_command = ['git', 'tag', '-a', f'v.{self.tag_number}', '-m', 'Tag Message']
             self.tag_number += 1
         elif letter == 'fetch':
-            git_command = ['git', 'fetch', 'all']
+            git_command = ['git', 'fetch',]
         elif letter == 'pull':
             git_command = ['git', 'pull', ]
         elif letter == 'push':
