@@ -10,9 +10,6 @@ from utils import *
 repo_path: str = 'tmp/repo'
 bare_repo_path: str = 'tmp/barerepo.git'
 
-repo_path = os.path.abspath(repo_path)
-bare_repo_path = os.path.abspath(bare_repo_path)
-
 # ensures that tmp folders are empty
 clean_up(None, repo_path, bare_repo_path)
 

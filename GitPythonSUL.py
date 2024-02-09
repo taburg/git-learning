@@ -108,10 +108,10 @@ class GitWrapper:
 
 
 class GitPythonSUL(SUL):
-    def __init__(self, path_to_repo, path_to_remote, change_uses_random_test=True, verbose=True):
+    def __init__(self, repo_path, bare_repo_path, change_uses_random_test=True, verbose=True):
         super().__init__()
-        self.repo_path: str = path_to_repo
-        self.bare_repo_path: str = path_to_remote
+        self.repo_path = os.path.abspath(repo_path)
+        self.bare_repo_path = os.path.abspath(bare_repo_path)
         assert not os.path.exists(self.repo_path)
         assert not os.path.exists(self.bare_repo_path)
 

@@ -1,3 +1,4 @@
+import os
 import subprocess
 
 from aalpy.base import SUL
@@ -19,9 +20,11 @@ def execute_git_command(command, cwd):
 class GitCmdSUL(SUL):
     def __init__(self, repo_path, bare_repo_path, change_uses_random_test=True, verbose=True):
         super().__init__()
-        self.repo_path = repo_path
-        self.bare_repo_path = bare_repo_path
-        self.path_to_bare_repo_from_repo = self.bare_repo_path.replace('tmp', '..')
+        # absolute paths to ensure folder deletion
+        self.repo_path = os.path.abspath(repo_path)
+        self.bare_repo_path = os.path.abspath(bare_repo_path)
+        # relative path from repo to bare repo to set the remote
+        self.path_to_bare_repo_from_repo = bare_repo_path.replace('tmp', '..')
 
         self.change_uses_random_test = change_uses_random_test
 
