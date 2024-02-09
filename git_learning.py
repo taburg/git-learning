@@ -17,7 +17,7 @@ bare_repo_path = os.path.abspath(bare_repo_path)
 clean_up(None, repo_path, bare_repo_path)
 
 # select which input alphabet to use
-input_alphabet = basic_functionality_with_remote_alphabet
+input_alphabet = basic_functionality_alphabet
 # If you want to use CMD interface to git set to True, for GitPython set to False
 use_cmd_git = True
 
@@ -29,7 +29,7 @@ else:
     interface_type = 'gitPython'
 
 eq_oracle = RandomWMethodEqOracle(input_alphabet, git_sul, walks_per_state=25, walk_len=10)
-learned_model = run_Lstar(input_alphabet, git_sul, eq_oracle, automaton_type='mealy')
+learned_model = run_Lstar(input_alphabet, git_sul, eq_oracle, automaton_type='mealy', max_learning_rounds=4)
 
 learned_model.visualize(path=f'models/{interface_type}_basic_functionality_with_remotes.pdf')
 learned_model.save(f'models/{interface_type}_basic_functionality_with_remotes')

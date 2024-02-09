@@ -106,12 +106,14 @@ class GitWrapper:
 
 
 class GitPythonSUL(SUL):
-    def __init__(self, path_to_repo, path_to_remote, verbose=True):
+    def __init__(self, path_to_repo, path_to_remote, change_uses_random_test=True, verbose=True):
         super().__init__()
         self.repo_path: str = path_to_repo
         self.bare_repo_path: str = path_to_remote
         assert not os.path.exists(self.repo_path)
         assert not os.path.exists(self.bare_repo_path)
+
+        self.change_uses_random_test = change_uses_random_test
 
         self.filenames: list[str] = ['file0.txt', 'file1.txt']
 
@@ -141,9 +143,11 @@ class GitPythonSUL(SUL):
         elif letter == 'create_f1':
             command_status = create_file(self.repo_path + '/' + self.filenames[1])
         elif letter == 'change_f0':
-            command_status = change_file(self.repo_path + '/' + self.filenames[0])
+            command_status = change_file(self.repo_path + '/' + self.filenames[0],
+                                         use_random_text=self.change_uses_random_test)
         elif letter == 'change_f1':
-            command_status = change_file(self.repo_path + '/' + self.filenames[1])
+            command_status = change_file(self.repo_path + '/' + self.filenames[1],
+                                         use_random_text=self.change_uses_random_test)
         elif letter == 'delete_f0':
             command_status = delete_file(self.repo_path + '/' + self.filenames[0])
         elif letter == 'delete_f1':
@@ -186,4 +190,3 @@ class GitPythonSUL(SUL):
             raise ValueError(f'This letter is not part of the alphabet! Letter: {letter}')
 
         return 'PASS' if command_status else 'FAIL'
-
