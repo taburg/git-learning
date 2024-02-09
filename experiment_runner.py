@@ -22,7 +22,7 @@ for interface_type, sul in [('cmd', GitCmdSUL), ('gitPython', GitPythonSUL)]:
                                     ('basic_with_remotes', basic_functionality_with_remote_alphabet),
                                     ('extended', extended_functionality)]:
 
-        for alg_name, learning_alg in [('L_star_', run_Lstar)]:
+        for alg_name, learning_alg in [('L_star_', run_Lstar), ('KV', run_KV)]:
             print(f'{alg_name}_{input_al_name} --------------')
             git_sul = sul(repo_path, bare_repo_path, verbose=False)
 
