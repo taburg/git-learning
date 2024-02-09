@@ -18,14 +18,15 @@ for input_al_name, input_al in [('basic', basic_functionality_alphabet),
                                 ('basic_with_remotes', remotes_alphabet),
                                 ('basics_with_remotes_and_branches', remotes_branching_alphabet),
                                 ('extended', extended_functionality)]:
+
     for interface_type, sul in [('cmd', GitCmdSUL), ('gitPython', GitPythonSUL)]:
-        for alg_name, learning_alg in [('L_star_', run_Lstar), ('KV', run_KV)]:
+        for alg_name, learning_alg in [('KV', run_KV)]:
             print(f'{alg_name}_{input_al_name} --------------')
-            git_sul = sul(repo_path, bare_repo_path, verbose=False)
+            git_sul = sul(repo_path, bare_repo_path, allow_empty_commit=False, verbose=False)
 
             eq_oracle = RandomWMethodEqOracle(input_al, git_sul, walks_per_state=25, walk_len=10)
             learned_model = run_Lstar(input_al, git_sul, eq_oracle, automaton_type='mealy')
 
-            learned_model.save(f'models/{interface_type}_{alg_name}_{input_al_name}')
+            learned_model.save(f'models/{interface_type}_no_empty_{alg_name}_{input_al_name}')
 
             clean_up(None if interface_type == 'cmd' else git_sul.git, repo_path, bare_repo_path)
