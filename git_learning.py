@@ -17,7 +17,7 @@ bare_repo_path = os.path.abspath(bare_repo_path)
 clean_up(None, repo_path, bare_repo_path)
 
 # select which input alphabet to use
-input_alphabet = basic_functionality_with_remote_alphabet
+input_alphabet = basic_functionality_alphabet
 # If you want to use CMD interface to git set to True, for GitPython set to False
 use_cmd_git = True
 
