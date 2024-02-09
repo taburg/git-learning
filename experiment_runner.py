@@ -21,7 +21,8 @@ for interface_type, sul in [('cmd', GitCmdSUL), ('gitPython', GitPythonSUL)]:
     for input_al_name, input_al in [('basic', basic_functionality_alphabet),
                                     ('basic_with_remotes', basic_functionality_with_remote_alphabet),
                                     ('extended', extended_functionality)]:
-        for alg_name, learning_alg in [('L*', run_Lstar), ("KV", run_KV)]:
+
+        for alg_name, learning_alg in [('L_star_', run_Lstar)]:
             print(f'{alg_name}_{input_al_name} --------------')
             git_sul = sul(repo_path, bare_repo_path, verbose=False)
 
@@ -31,4 +32,4 @@ for interface_type, sul in [('cmd', GitCmdSUL), ('gitPython', GitPythonSUL)]:
             learned_model.save(f'models/{interface_type}_{alg_name}_{input_al_name}')
             learned_model.visualize(path=f'models/{interface_type}_{alg_name}_{input_al_name}.pdf')
 
-            clean_up(git_sul.git, repo_path, bare_repo_path)
+            clean_up(None if interface_type == 'cmd' else git_sul.git, repo_path, bare_repo_path)
