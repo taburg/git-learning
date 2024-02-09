@@ -17,11 +17,13 @@ def execute_git_command(command, cwd):
 
 
 class GitCmdSUL(SUL):
-    def __init__(self, repo_path, bare_repo_path, verbose=True):
+    def __init__(self, repo_path, bare_repo_path, change_uses_random_test=True, verbose=True):
         super().__init__()
         self.repo_path = repo_path
         self.bare_repo_path = bare_repo_path
         self.path_to_bare_repo_from_repo = self.bare_repo_path.replace('tmp', '..')
+
+        self.change_uses_random_test = change_uses_random_test
 
         # helper variables
         self.filenames: list[str] = ['file0.txt', 'file1.txt']
@@ -58,9 +60,11 @@ class GitCmdSUL(SUL):
         elif letter == 'create_f1':
             file_command_status = create_file(self.repo_path + '/' + self.filenames[1])
         elif letter == 'change_f0':
-            file_command_status = change_file(self.repo_path + '/' + self.filenames[0])
+            file_command_status = change_file(self.repo_path + '/' + self.filenames[0],
+                                              use_random_text=self.change_uses_random_test)
         elif letter == 'change_f1':
-            file_command_status = change_file(self.repo_path + '/' + self.filenames[1])
+            file_command_status = change_file(self.repo_path + '/' + self.filenames[1],
+                                              use_random_text=self.change_uses_random_test)
         elif letter == 'delete_f0':
             file_command_status = delete_file(self.repo_path + '/' + self.filenames[0])
         elif letter == 'delete_f1':

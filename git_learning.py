@@ -29,7 +29,7 @@ else:
     interface_type = 'gitPython'
 
 eq_oracle = RandomWMethodEqOracle(input_alphabet, git_sul, walks_per_state=25, walk_len=10)
-learned_model = run_Lstar(input_alphabet, git_sul, eq_oracle, automaton_type='mealy')
+learned_model = run_Lstar(input_alphabet, git_sul, eq_oracle, automaton_type='mealy', max_learning_rounds=4)
 
 learned_model.visualize(path=f'models/{interface_type}_basic_functionality_with_remotes.pdf')
 learned_model.save(f'models/{interface_type}_basic_functionality_with_remotes')
