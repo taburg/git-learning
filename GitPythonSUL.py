@@ -47,7 +47,7 @@ class GitWrapper:
             return False
 
     def commit(self, allow_empty_commit):
-        if allow_empty_commit and not self.repo.is_dirty():
+        if not allow_empty_commit and not self.repo.is_dirty():
             return False
         try:
             self.repo.index.commit(f'Commit Number: {self.commit_number}')
