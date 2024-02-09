@@ -46,7 +46,9 @@ class GitWrapper:
         except Exception:
             return False
 
-    def commit(self):
+    def commit(self, allow_empty_commit):
+        if allow_empty_commit and not self.repo.is_dirty():
+            return False
         try:
             self.repo.index.commit(f'Commit Number: {self.commit_number}')
             self.commit_number += 1
@@ -108,7 +110,7 @@ class GitWrapper:
 
 
 class GitPythonSUL(SUL):
-    def __init__(self, repo_path, bare_repo_path, change_uses_random_test=True, verbose=True):
+    def __init__(self, repo_path, bare_repo_path, change_uses_random_test=True, allow_empty_commit=False, verbose=True):
         super().__init__()
         self.repo_path = os.path.abspath(repo_path)
         self.bare_repo_path = os.path.abspath(bare_repo_path)
@@ -116,6 +118,7 @@ class GitPythonSUL(SUL):
         assert not os.path.exists(self.bare_repo_path)
 
         self.change_uses_random_test = change_uses_random_test
+        self.allow_empty_commit = allow_empty_commit
 
         self.filenames: list[str] = ['file0.txt', 'file1.txt']
 
@@ -173,7 +176,7 @@ class GitPythonSUL(SUL):
         elif letter == 'add_f1':
             command_status = self.git.add(self.filenames[1])
         elif letter == 'commit':
-            command_status = self.git.commit()
+            command_status = self.git.commit(self.allow_empty_commit)
         elif letter == 'tag':
             command_status = self.git.tag()
         elif letter == 'fetch':

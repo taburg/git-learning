@@ -14,16 +14,19 @@ bare_repo_path: str = 'tmp/barerepo.git'
 clean_up(None, repo_path, bare_repo_path)
 
 # select which input alphabet to use
-input_alphabet = remotes_branching_alphabet
+input_alphabet = remotes_alphabet
 # If you want to use CMD interface to git set to True, for GitPython set to False
 use_cmd_git = True
+# Allow empty commit
+allow_emtpy_commit = True
 
 if use_cmd_git:
-    git_sul = GitCmdSUL(repo_path, bare_repo_path)
+    git_sul = GitCmdSUL(repo_path, bare_repo_path, allow_empty_commit=allow_emtpy_commit)
     interface_type = 'cmd'
 else:
-    git_sul = GitPythonSUL(repo_path, bare_repo_path)
+    git_sul = GitPythonSUL(repo_path, bare_repo_path, allow_empty_commit=allow_emtpy_commit)
     interface_type = 'gitPython'
+
 
 eq_oracle = RandomWMethodEqOracle(input_alphabet, git_sul, walks_per_state=25, walk_len=10)
 learned_model = run_Lstar(input_alphabet, git_sul, eq_oracle, automaton_type='mealy', max_learning_rounds=4)

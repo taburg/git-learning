@@ -27,6 +27,5 @@ for input_al_name, input_al in [('basic', basic_functionality_alphabet),
             learned_model = run_Lstar(input_al, git_sul, eq_oracle, automaton_type='mealy')
 
             learned_model.save(f'models/{interface_type}_{alg_name}_{input_al_name}')
-            learned_model.visualize(path=f'models/{interface_type}_{alg_name}_{input_al_name}.pdf')
 
             clean_up(None if interface_type == 'cmd' else git_sul.git, repo_path, bare_repo_path)

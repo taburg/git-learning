@@ -18,7 +18,7 @@ def execute_git_command(command, cwd):
 
 
 class GitCmdSUL(SUL):
-    def __init__(self, repo_path, bare_repo_path, change_uses_random_test=True, verbose=True):
+    def __init__(self, repo_path, bare_repo_path, change_uses_random_test=True, allow_empty_commit=False, verbose=True):
         super().__init__()
         # absolute paths to ensure folder deletion
         self.repo_path = os.path.abspath(repo_path)
@@ -27,6 +27,7 @@ class GitCmdSUL(SUL):
         self.path_to_bare_repo_from_repo = bare_repo_path.replace('tmp', '..')
 
         self.change_uses_random_test = change_uses_random_test
+        self.allow_empty_commit = allow_empty_commit
 
         # helper variables
         self.filenames: list[str] = ['file0.txt', 'file1.txt']
@@ -86,6 +87,8 @@ class GitCmdSUL(SUL):
             git_command = ['git', 'add', self.filenames[1]]
         elif letter == 'commit':
             git_command = ['git', 'commit', '-m', f'Commit Number: {self.commit_number}']
+            if self.allow_empty_commit:
+                git_command.insert(2, '--allow-empty')
             self.commit_number += 1
         elif letter == 'tag':
             git_command = ['git', 'tag', '-a', f'v.{self.tag_number}', '-m', 'Tag Message']
