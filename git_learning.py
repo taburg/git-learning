@@ -18,7 +18,7 @@ input_alphabet = remotes_alphabet
 # If you want to use CMD interface to git set to True, for GitPython set to False
 use_cmd_git = True
 # Allow empty commit
-allow_emtpy_commit = True
+allow_emtpy_commit = False
 
 if use_cmd_git:
     git_sul = GitCmdSUL(repo_path, bare_repo_path, allow_empty_commit=allow_emtpy_commit)

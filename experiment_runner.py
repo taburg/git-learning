@@ -14,19 +14,21 @@ bare_repo_path: str = 'tmp/barerepo.git'
 # ensures that tmp folders are empty
 clean_up(None, repo_path, bare_repo_path)
 
-for input_al_name, input_al in [('basic', basic_functionality_alphabet),
-                                ('basic_with_remotes', remotes_alphabet),
-                                ('basics_with_remotes_and_branches', remotes_branching_alphabet),
-                                ('extended', extended_functionality)]:
+for alg_name, learning_alg in [('KV', run_KV)]:
 
-    for interface_type, sul in [('cmd', GitCmdSUL), ('gitPython', GitPythonSUL)]:
-        for alg_name, learning_alg in [('KV', run_KV)]:
-            print(f'{alg_name}_{input_al_name} --------------')
-            git_sul = sul(repo_path, bare_repo_path, allow_empty_commit=False, verbose=False)
+    for input_al_name, input_al in [('basic', basic_functionality_alphabet),
+                                    ('basic_with_remotes', remotes_alphabet),
+                                    ('basics_with_remotes_and_branches', remotes_branching_alphabet),
+                                    ('extended', extended_functionality)]:
 
-            eq_oracle = RandomWMethodEqOracle(input_al, git_sul, walks_per_state=25, walk_len=10)
-            learned_model = run_Lstar(input_al, git_sul, eq_oracle, automaton_type='mealy')
+        for interface_type, sul in [('cmd', GitCmdSUL), ('gitPython', GitPythonSUL)]:
+            for allow_empty in [True, False]:
+                print(f'{alg_name}_{input_al_name} --------------')
+                git_sul = sul(repo_path, bare_repo_path, allow_empty_commit=allow_empty, verbose=False)
 
-            learned_model.save(f'models/{interface_type}_no_empty_{alg_name}_{input_al_name}')
+                eq_oracle = RandomWMethodEqOracle(input_al, git_sul, walks_per_state=25, walk_len=10)
+                learned_model = run_Lstar(input_al, git_sul, eq_oracle, automaton_type='mealy')
 
-            clean_up(None if interface_type == 'cmd' else git_sul.git, repo_path, bare_repo_path)
+                learned_model.save(f'models/{interface_type}_empty_{allow_empty}_{input_al_name}_{alg_name}')
+
+                clean_up(None if interface_type == 'cmd' else git_sul.git, repo_path, bare_repo_path)
