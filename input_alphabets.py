@@ -32,8 +32,8 @@ remotes_branching_alphabet: list = [
     # Git commands
     'add_f0',
     'commit',  # Make a commit
-    'pull',  # Pull from remote
-    'push',  # Push to remote, implies --set-remote for new branches
+    # 'pull',  # Pull from remote
+    # 'push',  # Push to remote, implies --set-remote for new branches
 
     # Branching
     'create_branch',  # Create a new branch
