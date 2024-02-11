@@ -5,7 +5,7 @@ Learning a model of Git using AALpy.
 This section describes how to setup Git, in order to be learnable with AALpy. Instead of using a remote connection/repository, such as on GitHub or GitLab, we will create a bare repository locally.
 Experiments are performed locally for efficienty, and would need to be slighlty adapted to learn directly with the remote git server.
 
-Prerequisites: installation of Git and following Python dependencies:
+Prerequisites: an installation of Git and following Python dependencies:
 ```python
 pip install aalpy gitpython
 ```
@@ -28,9 +28,8 @@ git clone /path/to/bare.git
 
 ### Usage
 
-`python3 git_learning.py` creates two repos (one bare, one normal) in the `/tmp` directory.
+`python3 git_learning.py` creates two repos (one bare, one normal) in the `./tmp` directory, and learns the git model with the chosen input alphabet (see source code).
 
-TODO 
 Furthermore, the files `git-model.pdf` and `git-model.log` containing the model's graph and a textual representation will be created.
 
 
