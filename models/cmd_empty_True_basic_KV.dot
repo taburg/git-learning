@@ -1,4 +1,4 @@
-digraph cmd_empty_True_basic_L_star {
+digraph cmd_empty_True_basic_KV {
 s0 [label="s0"];
 s1 [label="s1"];
 s2 [label="s2"];

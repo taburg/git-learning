@@ -16,9 +16,9 @@ clean_up(None, repo_path, bare_repo_path)
 
 for alg_name, learning_alg in [('L_star', run_Lstar), ('KV', run_KV)]:
 
-    for input_al_name, input_al in [  # ('basic', basic_functionality_alphabet),
-        # ('basic_with_remotes', remotes_alphabet),
-        ('basics_with_remotes_and_branches', remotes_branching_alphabet), ]:
+    for input_al_name, input_al in [('basic', basic_functionality_alphabet),
+                                    ('basic_with_remotes', remotes_alphabet),]:
+                                    #('basics_with_remotes_and_branches', remotes_branching_alphabet), ]:
 
         for interface_type, sul in [('cmd', GitCmdSUL), ('gitPython', GitPythonSUL)]:
             for allow_empty in [True, False]:
