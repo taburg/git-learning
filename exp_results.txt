@@ -1,0 +1,202 @@
+C:\Users\MSI\PycharmProjects\git_learning\venv\Scripts\python.exe C:/Users/MSI/PycharmProjects/git_learning/experiment_runner.py
+L_star_basics_with_remotes_and_branches_cmd_empty_True--------------
+Hypothesis 1: 6 states.
+Hypothesis 2: 12 states.
+Hypothesis 3: 18 states.
+Hypothesis 4: 20 states.
+Hypothesis 5: 26 states.
+Hypothesis 6: 28 states.
+Deletion error (most likely to dangling processes holding git files). 1/5.
+Hypothesis 7: 34 states.
+Hypothesis 8: 36 states.
+Hypothesis 9: 38 states.
+Hypothesis 10: 40 states.
+-----------------------------------
+Learning Finished.
+Learning Rounds:  10
+Number of states: 40
+Time (in seconds)
+  Total                : 2659.26
+  Learning algorithm   : 2183.01
+  Conformance checking : 476.25
+Learning Algorithm
+ # Membership Queries  : 5589
+ # MQ Saved by Caching : 249
+ # Steps               : 72471
+Equivalence Query
+ # Membership Queries  : 1000
+ # Steps               : 16045
+-----------------------------------
+Model saved to models/cmd_empty_True_basics_with_remotes_and_branches_L_star.dot.
+L_star_basics_with_remotes_and_branches_cmd_empty_False--------------
+Hypothesis 1: 15 states.
+Hypothesis 2: 22 states.
+Hypothesis 3: 25 states.
+Hypothesis 4: 26 states.
+Hypothesis 5: 35 states.
+Hypothesis 6: 37 states.
+Hypothesis 7: 38 states.
+Hypothesis 8: 41 states.
+Hypothesis 9: 43 states.
+-----------------------------------
+Learning Finished.
+Learning Rounds:  9
+Number of states: 43
+Time (in seconds)
+  Total                : 2419.35
+  Learning algorithm   : 1972.13
+  Conformance checking : 447.22
+Learning Algorithm
+ # Membership Queries  : 5375
+ # MQ Saved by Caching : 194
+ # Steps               : 65510
+Equivalence Query
+ # Membership Queries  : 1075
+ # Steps               : 16874
+-----------------------------------
+Model saved to models/cmd_empty_False_basics_with_remotes_and_branches_L_star.dot.
+L_star_basics_with_remotes_and_branches_gitPython_empty_True--------------
+Hypothesis 1: 6 states.
+Hypothesis 2: 9 states.
+Hypothesis 3: 15 states.
+Hypothesis 4: 20 states.
+Hypothesis 5: 22 states.
+Hypothesis 6: 25 states.
+Hypothesis 7: 30 states.
+-----------------------------------
+Learning Finished.
+Learning Rounds:  7
+Number of states: 30
+Time (in seconds)
+  Total                : 1855.98
+  Learning algorithm   : 1486.46
+  Conformance checking : 369.52
+Learning Algorithm
+ # Membership Queries  : 3482
+ # MQ Saved by Caching : 172
+ # Steps               : 32060
+Equivalence Query
+ # Membership Queries  : 750
+ # Steps               : 9656
+-----------------------------------
+Model saved to models/gitPython_empty_True_basics_with_remotes_and_branches_L_star.dot.
+L_star_basics_with_remotes_and_branches_gitPython_empty_False--------------
+Hypothesis 1: 8 states.
+-----------------------------------
+Learning Finished.
+Learning Rounds:  1
+Number of states: 8
+Time (in seconds)
+  Total                : 252.3
+  Learning algorithm   : 168.61
+  Conformance checking : 83.69
+Learning Algorithm
+ # Membership Queries  : 512
+ # MQ Saved by Caching : 8
+ # Steps               : 2432
+Equivalence Query
+ # Membership Queries  : 200
+ # Steps               : 1816
+-----------------------------------
+Model saved to models/gitPython_empty_False_basics_with_remotes_and_branches_L_star.dot.
+KV_basics_with_remotes_and_branches_cmd_empty_True--------------
+Hypothesis 1: 6 states.
+Hypothesis 2: 12 states.
+Hypothesis 3: 16 states.
+Hypothesis 4: 22 states.
+Hypothesis 5: 23 states.
+Hypothesis 6: 27 states.
+Hypothesis 7: 28 states.
+Hypothesis 8: 38 states.
+Hypothesis 9: 39 states.
+-----------------------------------
+Learning Finished.
+Learning Rounds:  9
+Number of states: 39
+Time (in seconds)
+  Total                : 2326.47
+  Learning algorithm   : 1899.49
+  Conformance checking : 426.98
+Learning Algorithm
+ # Membership Queries  : 5071
+ # MQ Saved by Caching : 305
+ # Steps               : 58770
+Equivalence Query
+ # Membership Queries  : 975
+ # Steps               : 14549
+-----------------------------------
+Model saved to models/cmd_empty_True_basics_with_remotes_and_branches_KV.dot.
+KV_basics_with_remotes_and_branches_cmd_empty_False--------------
+Hypothesis 1: 15 states.
+Hypothesis 2: 21 states.
+Hypothesis 3: 23 states.
+Hypothesis 4: 31 states.
+Hypothesis 5: 33 states.
+Hypothesis 6: 37 states.
+Hypothesis 7: 39 states.
+Hypothesis 8: 41 states.
+Hypothesis 9: 42 states.
+Hypothesis 10: 43 states.
+-----------------------------------
+Learning Finished.
+Learning Rounds:  10
+Number of states: 43
+Time (in seconds)
+  Total                : 2498.57
+  Learning algorithm   : 2043.53
+  Conformance checking : 455.04
+Learning Algorithm
+ # Membership Queries  : 5694
+ # MQ Saved by Caching : 226
+ # Steps               : 70327
+Equivalence Query
+ # Membership Queries  : 1075
+ # Steps               : 17084
+-----------------------------------
+Model saved to models/cmd_empty_False_basics_with_remotes_and_branches_KV.dot.
+KV_basics_with_remotes_and_branches_gitPython_empty_True--------------
+Hypothesis 1: 6 states.
+Hypothesis 2: 9 states.
+Hypothesis 3: 15 states.
+Hypothesis 4: 18 states.
+Hypothesis 5: 22 states.
+Hypothesis 6: 24 states.
+Hypothesis 7: 27 states.
+-----------------------------------
+Learning Finished.
+Learning Rounds:  7
+Number of states: 27
+Time (in seconds)
+  Total                : 1463.78
+  Learning algorithm   : 1147.79
+  Conformance checking : 315.99
+Learning Algorithm
+ # Membership Queries  : 2888
+ # MQ Saved by Caching : 182
+ # Steps               : 21635
+Equivalence Query
+ # Membership Queries  : 675
+ # Steps               : 7961
+-----------------------------------
+Model saved to models/gitPython_empty_True_basics_with_remotes_and_branches_KV.dot.
+KV_basics_with_remotes_and_branches_gitPython_empty_False--------------
+Hypothesis 1: 8 states.
+-----------------------------------
+Learning Finished.
+Learning Rounds:  1
+Number of states: 8
+Time (in seconds)
+  Total                : 255.96
+  Learning algorithm   : 169.28
+  Conformance checking : 86.68
+Learning Algorithm
+ # Membership Queries  : 512
+ # MQ Saved by Caching : 8
+ # Steps               : 2432
+Equivalence Query
+ # Membership Queries  : 200
+ # Steps               : 1912
+-----------------------------------
+Model saved to models/gitPython_empty_False_basics_with_remotes_and_branches_KV.dot.
+
+Process finished with exit code 0

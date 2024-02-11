@@ -16,31 +16,33 @@ bare_repo_path = os.path.abspath(bare_repo_path)
 clean_up(None, repo_path, bare_repo_path)
 
 for input_al_name, input_al in [('basic', basic_functionality_alphabet),
-                                ('basic_with_remotes', basic_functionality_with_remote_alphabet),
-                                ('extended', extended_functionality)]:
+                                ('basic_with_remotes', remotes_alphabet),
+                                ('basics_with_remotes_and_branches', extended_functionality)]:
 
-    for alg_name, learning_alg in [('L_star_', run_Lstar), ('KV', run_KV)]:
-        print(f'Comparing CMD and Gitpython on {input_al_name}')
+    for alg_name, learning_alg in [('L_star', run_Lstar),]:
+            for allow_empty in [True, False]:
 
-        cmd_model = load_automaton_from_file(f'cmd_{alg_name}_{input_al_name}.dot', 'mealy')
-        gitPython_model = load_automaton_from_file(f'gitPython_{alg_name}_{input_al_name}.dot', 'mealy')
+                print(f'Comparing CMD and Gitpython on {input_al_name}, allow empty {allow_empty}')
 
-        shortest_counterexample = bisimilar(cmd_model, gitPython_model)
+                cmd_model = load_automaton_from_file(f'models/cmd_empty_{allow_empty}_{input_al_name}_{alg_name}.dot', 'mealy')
+                gitPython_model = load_automaton_from_file(f'models/gitPython_empty_{allow_empty}_{input_al_name}_{alg_name}.dot', 'mealy')
 
-        if shortest_counterexample:
-            print(f'Shortest Counterexample: {shortest_counterexample}')
-            print(f'CFM Interface           : {cmd_model.execute_sequence(cmd_model.initial_state, shortest_counterexample)}')
-            print(f'GitPython Interface     : {gitPython_model.execute_sequence(cmd_model.initial_state, shortest_counterexample)}')
+                shortest_counterexample = bisimilar(cmd_model, gitPython_model,return_cex=True)
 
-            more_cex = compare_automata(cmd_model, gitPython_model, num_cex=5)
-            print('Additional counterexamples')
-            for cex in more_cex:
-                print(f'Counterexample        : {shortest_counterexample}')
-                print(f'CFM Interface           : {cmd_model.execute_sequence(cmd_model.initial_state, shortest_counterexample)}')
-                print(f'GitPython Interface     : {gitPython_model.execute_sequence(cmd_model.initial_state, shortest_counterexample)}')
+                if shortest_counterexample:
+                    print(f'Shortest Counterexample: {shortest_counterexample}')
+                    print(f'CFM Interface           : {cmd_model.execute_sequence(cmd_model.initial_state, shortest_counterexample)}')
+                    print(f'GitPython Interface     : {gitPython_model.execute_sequence(gitPython_model.initial_state, shortest_counterexample)}')
 
-        else:
-            print("CMD and GitPython interfaces behave the same.")
+                    more_cex = compare_automata(cmd_model, gitPython_model, num_cex=5)
+                    print('Additional counterexamples')
+                    for cex in more_cex:
+                        print(f'Counterexample        : {cex}')
+                        print(f'CFM Interface           : {cmd_model.execute_sequence(cmd_model.initial_state, cex)}')
+                        print(f'GitPython Interface     : {gitPython_model.execute_sequence(gitPython_model.initial_state, cex)}')
+
+                else:
+                    print("CMD and GitPython interfaces behave the same.")
 
 
 
