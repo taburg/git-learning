@@ -1,0 +1,16 @@
+digraph gitPython_empty_True_basic_KV {
+s0 [label="s0"];
+s1 [label="s1"];
+s0 -> s1  [label="create_f0/PASS"];
+s0 -> s0  [label="change_f0/FAIL"];
+s0 -> s0  [label="delete_f0/FAIL"];
+s0 -> s0  [label="add_f0/FAIL"];
+s0 -> s0  [label="commit/PASS"];
+s1 -> s1  [label="create_f0/FAIL"];
+s1 -> s1  [label="change_f0/FAIL"];
+s1 -> s0  [label="delete_f0/PASS"];
+s1 -> s1  [label="add_f0/PASS"];
+s1 -> s1  [label="commit/PASS"];
+__start0 [label="", shape=none];
+__start0 -> s0  [label=""];
+}

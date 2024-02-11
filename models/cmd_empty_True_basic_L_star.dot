@@ -1,0 +1,28 @@
+digraph cmd_empty_True_basic_L_star {
+s0 [label="s0"];
+s1 [label="s1"];
+s2 [label="s2"];
+s3 [label="s3"];
+s0 -> s1  [label="create_f0/PASS"];
+s0 -> s0  [label="change_f0/FAIL"];
+s0 -> s0  [label="delete_f0/FAIL"];
+s0 -> s0  [label="add_f0/FAIL"];
+s0 -> s0  [label="commit/PASS"];
+s1 -> s1  [label="create_f0/FAIL"];
+s1 -> s1  [label="change_f0/FAIL"];
+s1 -> s0  [label="delete_f0/PASS"];
+s1 -> s2  [label="add_f0/PASS"];
+s1 -> s1  [label="commit/PASS"];
+s2 -> s2  [label="create_f0/FAIL"];
+s2 -> s2  [label="change_f0/FAIL"];
+s2 -> s3  [label="delete_f0/PASS"];
+s2 -> s2  [label="add_f0/PASS"];
+s2 -> s2  [label="commit/PASS"];
+s3 -> s2  [label="create_f0/PASS"];
+s3 -> s3  [label="change_f0/FAIL"];
+s3 -> s3  [label="delete_f0/FAIL"];
+s3 -> s0  [label="add_f0/PASS"];
+s3 -> s3  [label="commit/PASS"];
+__start0 [label="", shape=none];
+__start0 -> s0  [label=""];
+}
