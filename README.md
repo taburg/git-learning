@@ -1,5 +1,6 @@
-# git-learning
 ![Learned Git Model](https://github.com/taburg/git-learning/blob/main/models/learned_model.PNG)
+
+# git-learning
 Learning a model of Git using AALpy.
 
 ## Setup
