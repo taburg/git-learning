@@ -1,4 +1,5 @@
 # git-learning
+![Learned Git Model](https://github.com/taburg/git-learning/blob/main/models/learned_model.PNG)
 Learning a model of Git using AALpy.
 
 ## Setup
@@ -24,6 +25,8 @@ To execute all experiments, run:
 ```python
 python experiment_runner.py
 ```
+
+All learned models and experiment statistics can be found in the models/ folder. 
 
 ### Differences between learned models
 
