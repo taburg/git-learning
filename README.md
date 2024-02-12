@@ -6,7 +6,7 @@
 This section describes how to setup Git, in order to be learnable with AALpy. Instead of using a remote connection/repository, such as on GitHub or GitLab, we will create a bare repository locally.
 Experiments are performed locally for efficienty, and would need to be slightly adapted to learn directly with the remote git server.
 
-Prerequisites: an installation of Git and following Python dependencies:
+**Prerequisites:** An installation of Git and following Python dependencies:
 ```python
 pip install -r requirements.txt
 ```
@@ -14,10 +14,8 @@ pip install -r requirements.txt
 ### Usage
 
 `python3 git_learning.py` creates two repos (one bare, one normal) in the `./tmp` directory, and learns the git model with the chosen input alphabet (see source code).
-
 That script can be parametarized to learn certain configuration of Git, and learned model will be displayed and saved to a file.
-
-You can either learn models of GitCLI or GitPython, with or without `--allow-empty` flag, and with any input alphabet found in appropriate file.
+You can either learn models of GitCLI or GitPython, with or without the `--allow-empty` flag, and with any input alphabet found in the corresponding file.
 
 #### Experiment runner
 
@@ -48,3 +46,4 @@ Inputs    : ('create_f0', 'commit', 'add_f0', 'create_branch', 'commit', 'checko
 CLI       : ['PASS', 'PASS', 'PASS', 'PASS', 'PASS', 'PASS', 'PASS', 'FAIL']
 GitPython : ['PASS', 'PASS', 'PASS', 'PASS', 'PASS', 'PASS', 'PASS', 'PASS']
 ```
+
