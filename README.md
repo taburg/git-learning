@@ -1,7 +1,6 @@
 ![Learned Git Model](https://github.com/taburg/git-learning/blob/main/models/learned_model.PNG)
 
-# git-learning
-Learning a model of Git using AALpy.
+# Learning a model of Git using AALpy.
 
 ## Setup
 This section describes how to setup Git, in order to be learnable with AALpy. Instead of using a remote connection/repository, such as on GitHub or GitLab, we will create a bare repository locally.
